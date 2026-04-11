@@ -1,9 +1,9 @@
 name: Generate Contribution Animations
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Permite rodar manualmente
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 */12 * * *" # Roda a cada 12 horas
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 🐍 Snake
+      # 🐍 Gerar a Cobrinha (Snake)
       - name: Generate snake
         uses: Platane/snk@v3
         with:
@@ -26,29 +26,26 @@ jobs:
             snake.svg
             snake-dark.svg?palette=github-dark
 
-      # 👾 Pacman
+      # 👾 Gerar o Pacman
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install pacman generator
-        run: npm install pacman-contribution-graph
-
       - name: Generate pacman
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx pacman-contribution-graph \
-          --platform github \
-          --gameTheme github-dark \
           --username letsmg \
-          --repo spirits_ai \
+          --gameTheme github-dark \
           --output pacman-contribution-graph.svg
 
-      # 💾 Commit direto na main
+      # 💾 Commit e Push das imagens geradas
       - name: Commit files
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add snake.svg snake-dark.svg pacman-contribution-graph.svg
-          git commit -m "update contribution animations" || echo "no changes"
+          git commit -m "chore: update contribution animations [skip ci]" || echo "no changes"
           git push
