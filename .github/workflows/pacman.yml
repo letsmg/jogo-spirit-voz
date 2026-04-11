@@ -41,7 +41,7 @@ jobs:
           --platform github \
           --gameTheme github-dark \
           --username letsmg \
-          --repo spirits-ai \
+          --repo spirits_ai \
           --output pacman-contribution-graph.svg
 
       # 💾 Commit direto na main
