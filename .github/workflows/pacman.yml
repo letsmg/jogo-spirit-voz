@@ -16,31 +16,37 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 🐍 Gerar a Cobrinha (Snake)
+      # 🐍 Snake
       - name: Generate snake
         uses: Platane/snk@v3
         with:
           github_user_name: letsmg
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           outputs: |
             snake.svg
             snake-dark.svg?palette=github-dark
 
-      # 👾 Gerar o Pacman (Versão Estável e sem bugs de XML)
-      - name: Generate Pacman
-        uses: m-radzikowski/pacman-contributions-action@v1.1.0
+      # 👾 Pacman
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          github_user_name: letsmg
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          output_path: pacman-contribution-graph.svg
-          # O tema dark combina com seu perfil
-          theme: dark 
+          node-version: 20
 
-      # 💾 Commit e Push
+      - name: Install pacman generator
+        run: npm install pacman-contribution-graph
+
+      - name: Generate pacman
+        run: |
+          npx pacman-contribution-graph \
+          --platform github \
+          --gameTheme github-dark \
+          --username letsmg \
+          --output pacman-contribution-graph.svg
+
+      # 💾 Commit direto na main
       - name: Commit files
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add snake.svg snake-dark.svg pacman-contribution-graph.svg
-          git commit -m "chore: update contribution animations [skip ci]" || echo "no changes"
+          git commit -m "update contribution animations" || echo "no changes"
           git push
