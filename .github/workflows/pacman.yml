@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 🐍 Gerar a Cobrinha (Snake) - Mantendo o que já funciona
+      # 🐍 Gerar a Cobrinha (Snake)
       - name: Generate snake
         uses: Platane/snk@v3
         with:
@@ -26,17 +26,15 @@ jobs:
             snake.svg
             snake-dark.svg?palette=github-dark
 
-      # 👾 Gerar o Gráfico Retro (Substituindo o Pacman bugado)
-      # Esta action gera um calendário isométrico/retro sem erros de XML
-      - name: Generate Retro Pacman Style Graph
-        uses: lowlighter/metrics@latest
+      # 👾 Gerar o Pacman (Versão Estável e sem bugs de XML)
+      - name: Generate Pacman
+        uses: m-radzikowski/pacman-contributions-action@v1.1.0
         with:
-          filename: pacman-contribution-graph.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: ""
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: half-year
-          config_timezone: America/Sao_Paulo
+          github_user_name: letsmg
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          output_path: pacman-contribution-graph.svg
+          # O tema dark combina com seu perfil
+          theme: dark 
 
       # 💾 Commit e Push
       - name: Commit files
