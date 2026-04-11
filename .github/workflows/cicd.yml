@@ -34,7 +34,7 @@ jobs:
 
           ssh -o StrictHostKeyChecking=no ubuntu@147.15.80.52 << 'EOF'
             set -e
-            cd /var/www/jogo
+            cd /var/www/spirits_ai
             
             echo "Cleaning old files..."
             sudo find . -maxdepth 1 ! -name '.env' ! -name '.' -exec rm -rf {} +
