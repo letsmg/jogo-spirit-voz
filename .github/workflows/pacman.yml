@@ -1,9 +1,9 @@
 name: Generate Contribution Animations
 
 on:
-  workflow_dispatch: # Permite rodar manualmente
+  workflow_dispatch:
   schedule:
-    - cron: "0 */12 * * *" # Roda a cada 12 horas
+    - cron: "0 */12 * * *"
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 🐍 Gerar a Cobrinha (Snake)
+      # 🐍 Gerar a Cobrinha (Snake) - Mantendo o que já funciona
       - name: Generate snake
         uses: Platane/snk@v3
         with:
@@ -26,22 +26,19 @@ jobs:
             snake.svg
             snake-dark.svg?palette=github-dark
 
-      # 👾 Gerar o Pacman
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      # 👾 Gerar o Gráfico Retro (Substituindo o Pacman bugado)
+      # Esta action gera um calendário isométrico/retro sem erros de XML
+      - name: Generate Retro Pacman Style Graph
+        uses: lowlighter/metrics@latest
         with:
-          node-version: 20
+          filename: pacman-contribution-graph.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: ""
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
+          config_timezone: America/Sao_Paulo
 
-      - name: Generate pacman
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npx pacman-contribution-graph \
-          --username letsmg \
-          --gameTheme github-dark \
-          --output pacman-contribution-graph.svg
-
-      # 💾 Commit e Push das imagens geradas
+      # 💾 Commit e Push
       - name: Commit files
         run: |
           git config --global user.name "github-actions"
