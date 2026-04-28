@@ -13,7 +13,6 @@ jobs:
 
       - name: 🤐 Criar Pacote de Deploy
         run: |
-          # Organiza apenas os arquivos necessários
           mkdir build-tmp
           cp -r public/* build-tmp/
           [ -f .htaccess ] && cp .htaccess build-tmp/ || echo "Sem .htaccess"
@@ -30,26 +29,28 @@ jobs:
 
       - name: 🚀 Executar Deploy no Servidor
         run: |
-          scp -o StrictHostKeyChecking=no deploy-spirit-echo.zip ubuntu@${{ secrets.SERVER_IP }}:/tmp/
+          # IP OCULTO: Usando o segredo configurado no GitHub
+          SERVER_IP="${{ secrets.SERVER_IP }}"
 
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_IP }} << 'EOF'
+          scp -o StrictHostKeyChecking=no deploy-spirit-echo.zip ubuntu@$SERVER_IP:/tmp/
+
+          ssh -o StrictHostKeyChecking=no ubuntu@$SERVER_IP << 'EOF'
             set -e
 
-            # Definição do caminho único
             BASE_DIR="/var/www/spirit-echo"
 
-            # 1. Garante que a pasta de destino existe
+            # 1. Garante que a pasta existe
             sudo mkdir -p ${BASE_DIR}
 
-            # 2. Descompacta e sobrescreve os arquivos antigos (-o)
+            # 2. Descompacta e sobrescreve
             sudo unzip -o /tmp/deploy-spirit-echo.zip -d ${BASE_DIR}
 
-            # 3. Ajustar permissões para o Nginx (www-data)
+            # 3. Ajustar permissões
             sudo chown -R www-data:www-data ${BASE_DIR}
             sudo chmod -R 755 ${BASE_DIR}
 
-            # 4. Limpeza do arquivo temporário
+            # 4. Limpeza
             sudo rm /tmp/deploy-spirit-echo.zip
             
-            echo "✅ Deploy Direto Finalizado!"
+            echo "✅ Deploy Spirit Echo Finalizado!"
           EOF
