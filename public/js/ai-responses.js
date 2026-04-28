@@ -1,4 +1,4 @@
-// Módulo de IA para gerar respostas dinâmicas
+// Módulo de voz para gerar respostas dinâmicas
 class AIResponseGenerator {
     constructor() {
         this.apiKey = ''; // Coloque sua API key aqui (opcional)
@@ -60,12 +60,12 @@ class AIResponseGenerator {
             const data = await response.json();
             return this.extractResponse(data);
         } catch (error) {
-            console.error('Erro ao chamar API de IA:', error);
+            console.error('Erro ao chamar API de voz:', error);
             return this.generateMockResponse(pergunta, respostaSecreta);
         }
     }
 
-    // Construir prompt para a IA
+    // Construir prompt para a voz
     buildPrompt(pergunta, respostaSecreta) {
         return `Você é um espírito misterioso que responde perguntas de forma enigmática.
 Pergunta: "${pergunta}"
@@ -205,7 +205,7 @@ Gere uma resposta misteriosa e enigmática que combine com a resposta secreta.`;
         utterance.lang = this.userLanguage;
         utterance.rate = 0.7; // Velocidade mais lenta para efeito misterioso
         utterance.pitch = 0.5; // Tom mais grave para efeito sobrenatural/bruxa
-        utterance.volume = 1.0; // Volume máximo para voz
+        utterance.volume = 1.0; // Volume máximo (100% do volume do Windows)
 
         // Tentar usar uma voz feminina do idioma detectado (para efeito de bruxa)
         const voices = window.speechSynthesis.getVoices();

@@ -116,5 +116,5 @@ LimitRequestBody 10240
 
 # Log de segurança
 LogLevel warn
-ErrorLog ${APACHE_LOG_DIR}/spirits_ai_error.log
-CustomLog ${APACHE_LOG_DIR}/spirits_ai_access.log combined
+ErrorLog ${APACHE_LOG_DIR}/spirit-echo_error.log
+CustomLog ${APACHE_LOG_DIR}/spirit-echo_access.log combined

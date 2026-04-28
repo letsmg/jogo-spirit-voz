@@ -1,4 +1,4 @@
-# robots.txt for Jogo dos Espíritos com IA / Spirit Game with AI
+# robots.txt for Spirit Echo
 
 User-agent: *
 Allow: /

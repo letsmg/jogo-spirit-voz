@@ -122,11 +122,11 @@ async function mostra_resposta(){
     // Sanitização apenas na saída para prevenir XSS
     var sanitizedResposta = window.securityManager.encodeHTML(resposta);
 
-    // Tocar yt1.mp3 com volume 50%
+    // Tocar yt1.mp3 com volume 80%
     var yt1 = document.getElementById('yt1');
 
     if (yt1 && yt1.src && !yt1.src.includes('about:blank')) {
-        yt1.volume = 0.5; // Volume 50%
+        yt1.volume = 0.8; // Volume 80% do Windows
         yt1.play().catch(function(error) {
             console.error('Erro ao tocar yt1.mp3:', error);
         });
@@ -138,7 +138,7 @@ async function mostra_resposta(){
     resp.classList.add('mostra');
 
     if(sanitizedResposta == "" || sanitizedResposta == undefined || sanitizedResposta == "=" || sanitizedResposta == ";"){
-        // resposta vazia ou inválida, mostra erro aleatório com IA
+        // resposta vazia ou inválida, mostra erro aleatório com voz
         var errorResponse = window.aiResponseGenerator.generateErrorResponse();
         resp.innerHTML = "<h1></h1>"; // Começa vazio para efeito de digitação
         // Falar a resposta por voz após yt1.mp3 terminar com efeito de digitação e revelação de imagem
@@ -150,7 +150,7 @@ async function mostra_resposta(){
             window.aiResponseGenerator.speakResponse(errorResponse, resp.querySelector('h1'), resp);
         }
     }else{
-        // gera resposta dinâmica com IA
+        // gera resposta dinâmica com voz
         var perguntaUsuario = document.getElementById('texto').value;
         var aiResponse = await window.aiResponseGenerator.generateResponse(perguntaUsuario, sanitizedResposta);
         resp.innerHTML = "<h1></h1>"; // Começa vazio para efeito de digitação
@@ -187,7 +187,7 @@ function limpar(){
 function tocarMusica() {
     var voices = document.getElementById('voices');
     var btnMusica = document.getElementById('btnMusica');
-    
+
     // Verificar se o elemento de áudio existe e tem fonte válida
     if (!voices || !voices.src || voices.src.includes('about:blank')) {
         console.error('Elemento de áudio não encontrado ou sem fonte válida');
@@ -197,6 +197,9 @@ function tocarMusica() {
         btnMusica.disabled = true;
         return;
     }
+
+    // Definir volume máximo de 80% antes de tocar
+    voices.volume = 0.8;
 
     // Adicionar tratamento de erro
     voices.addEventListener('error', function(e) {
@@ -228,7 +231,7 @@ function tocarMusica() {
 function ajustarVolume(valor) {
     var voices = document.getElementById('voices');
     var yt1 = document.getElementById('yt1');
-    var volume = (valor / 100) * 0.4; // Converter de 0-100 para 0-0.4 (0 a 40% do Windows)
+    var volume = (valor / 100) * 0.8; // Converter de 0-100 para 0-0.8 (0 a 80% do Windows)
 
     if (voices) {
         voices.volume = volume;

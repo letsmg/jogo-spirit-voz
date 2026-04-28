@@ -139,3 +139,139 @@ h1, h2, h3, h4 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
+
+/* Estilos para o balão de instruções */
+.instruction-balloon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 350px;
+    max-width: 90vw;
+    z-index: 1000;
+    background: rgba(44, 62, 80, 0.95);
+    border: 2px solid rgba(52, 73, 94, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    display: none;
+}
+
+.balloon-header {
+    background: rgba(52, 73, 94, 0.8);
+    padding: 12px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transition: background 0.3s ease;
+}
+
+.balloon-header:hover {
+    background: rgba(52, 73, 94, 1);
+}
+
+.balloon-header i:first-child {
+    color: #f39c12;
+    font-size: 1.2rem;
+}
+
+.balloon-header span {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.balloon-header #balloonIcon {
+    transition: transform 0.3s ease;
+}
+
+.balloon-header #balloonIcon.rotated {
+    transform: rotate(180deg);
+}
+
+.balloon-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.balloon-content.expanded {
+    max-height: 500px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.balloon-inner {
+    padding: 15px;
+}
+
+.balloon-inner h5 {
+    color: #f39c12 !important;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.balloon-inner h6 {
+    color: #ecf0f1 !important;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.balloon-inner p {
+    color: #bdc3c7;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.balloon-inner ul {
+    color: #bdc3c7;
+    font-size: 0.9rem;
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.balloon-inner li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.balloon-inner code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #e74c3c;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.balloon-inner hr {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
+}
+
+.balloon-inner .text-muted {
+    color: #95a5a6 !important;
+}
+
+/* Scrollbar personalizada para o balão */
+.balloon-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.balloon-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.balloon-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.balloon-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}

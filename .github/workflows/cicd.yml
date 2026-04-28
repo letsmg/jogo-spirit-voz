@@ -1,4 +1,4 @@
-name: Deploy Jogo dos Espíritos com IA
+name: 🚀 Deploy Atômico Spirit Echo
 
 on:
   push:
@@ -8,48 +8,50 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: Create deploy package
+      - name: 🤐 Criar Pacote de Deploy
         run: |
-          # Copia apenas os arquivos necessários para produção
-          mkdir deploy
-          cp -r public deploy/
-          cp .htaccess deploy/public/ 2>/dev/null || echo ".htaccess não encontrado"
-
-          # Cria o zip para deploy
-          cd deploy
-          zip -r ../deploy.zip .
+          mkdir build-tmp
+          cp -r public build-tmp/
+          cp .htaccess build-tmp/public/ 2>/dev/null || echo "Sem .htaccess"
+          
+          cd build-tmp
+          zip -r ../deploy-spirit-echo.zip .
           cd ..
 
-      - name: Configure SSH
-        uses: webfactory/ssh-agent@v0.8.0
+      - name: 🔑 Configure SSH & Known Hosts
+        uses: shimataro/ssh-key-action@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
-      - name: Deploy to server
+      - name: 🚀 Deploy Atômico
         run: |
-          scp -o StrictHostKeyChecking=no deploy.zip ubuntu@147.15.80.52:/tmp/
+          scp deploy-spirit-echo.zip ubuntu@${{ secrets.SERVER_IP }}:/tmp/
 
-          ssh -o StrictHostKeyChecking=no ubuntu@147.15.80.52 << 'EOF'
+          ssh ubuntu@${{ secrets.SERVER_IP }} << 'EOF'
             set -e
-            cd /var/www/spirits_ai
             
-            echo "Cleaning old files..."
-            sudo find . -maxdepth 1 ! -name '.env' ! -name '.' -exec rm -rf {} +
+            BASE-DIR="/var/www/spirit-echo"
             
-            echo "Extracting new files..."
-            sudo unzip -o /tmp/deploy.zip -d .
-            sudo rm /tmp/deploy.zip
-
-            echo "Setting permissions..."
-            sudo chown -R www-data:www-data /var/www/spirits_ai
-            sudo chmod -R 755 .
+            sudo mkdir -p ${BASE-DIR}-shared
+            sudo rm -rf ${BASE-DIR}-new
+            sudo mkdir -p ${BASE-DIR}-new
             
-            echo "Deploy completed successfully!"
+            sudo unzip -o /tmp/deploy-spirit-echo.zip -d ${BASE-DIR}-new
+            
+            if [ -f "${BASE-DIR}-shared/.env" ]; then
+                sudo ln -sfn ${BASE-DIR}-shared/.env ${BASE-DIR}-new/.env
+            fi
+            
+            sudo chown -R www-data:www-data ${BASE-DIR}-new
+            sudo chmod -R 755 ${BASE-DIR}-new
+            
+            # SWAP ATÔMICO
+            sudo ln -sfn ${BASE-DIR}-new ${BASE-DIR}-live
+            
+            sudo rm /tmp/deploy-spirit-echo.zip
+            echo "✅ Deploy Atômico Finalizado!"
           EOF
-
-      - name: Cleanup
-        if: always()
-        run: rm -rf deploy deploy.zip

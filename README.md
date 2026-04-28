@@ -1,6 +1,6 @@
-<img src="https://raw.githubusercontent.com/letsmg/spirits_ai/main/pacman-contribution-graph.svg" />
+<img src="https://raw.githubusercontent.com/letsmg/spirit-echo/main/pacman-contribution-graph.svg" />
 
-# 🌌 Jogo dos Espíritos versão IA
+# 🌌 Spirit Echo
 
 ---
 
@@ -47,7 +47,7 @@ O jogo na verdade consiste em enganar seus amigos fazendo-os acreditar que algo 
 
 4. **A resposta aparece:**
    - Um som é tocado (yt1.mp3 com 50% de volume)
-   - A voz da IA fala a resposta
+   - A voz fala a resposta
    - O texto aparece letra por letra
    - A imagem de fundo é revelada gradualmente
 
@@ -62,9 +62,9 @@ O jogo na verdade consiste em enganar seus amigos fazendo-os acreditar que algo 
 - Pressione `=` ou `;` para terminar
 - Digite a pergunta e veja a resposta aparecer
 
-# Jogo dos Espíritos com IA
+# Spirit Echo
 
-Um jogo interativo de perguntas aos espíritos com efeitos sonoros, visuais e **respostas geradas por IA**.
+Um jogo interativo de perguntas aos espíritos com efeitos sonoros, visuais e **respostas geradas por voz**.
 
 ## Características
 
@@ -72,7 +72,7 @@ Um jogo interativo de perguntas aos espíritos com efeitos sonoros, visuais e **
 - Efeitos sonoros ambientais
 - Design moderno com tema escuro
 - Controle de volume
-- **Respostas dinâmicas geradas por IA**
+- **Respostas dinâmicas geradas por voz**
 - Proteções de segurança (XSS, headers HTTP)
 
 ## Tecnologias
@@ -81,7 +81,7 @@ Um jogo interativo de perguntas aos espíritos com efeitos sonoros, visuais e **
 - CSS3 (Bootstrap 5)
 - JavaScript (jQuery)
 - Vite (para desenvolvimento local)
-- **Integração com IA para respostas dinâmicas**
+- **Integração com voz para respostas dinâmicas**
 
 ## Como executar localmente
 
@@ -104,9 +104,9 @@ npm run dev
 
 O site será aberto automaticamente no navegador em http://localhost:3000
 
-## Funcionalidade de IA
+## Funcionalidade de voz
 
-O jogo agora usa IA para gerar respostas mais dinâmicas e misteriosas:
+O jogo agora usa voz para gerar respostas mais dinâmicas e misteriosas:
 
 ### Modo Mock (Padrão)
 - Usa respostas pré-definidas com variações aleatórias
@@ -114,7 +114,7 @@ O jogo agora usa IA para gerar respostas mais dinâmicas e misteriosas:
 - Funciona offline
 
 ### Modo com API (Opcional)
-Para usar uma API real de IA (OpenAI, Anthropic, etc.):
+Para usar uma API real de voz (OpenAI, Anthropic, etc.):
 
 1. Edite `public/js/ai-responses.js`
 2. Configure sua API key:
@@ -125,9 +125,9 @@ window.aiResponseGenerator.apiEndpoint = 'https://api.exemplo.com/v1/completions
 
 3. O jogo usará a API para gerar respostas mais personalizadas
 
-### Respostas de Erro com IA
+### Respostas de Erro com voz
 - Mensagens de erro mais variadas e misteriosas
-- Geradas dinamicamente pelo sistema de IA
+- Geradas dinamicamente pelo sistema de voz
 
 ## Deploy
 
@@ -151,13 +151,13 @@ O projeto implementa várias camadas de segurança:
 ## Estrutura do Projeto
 
 ```
-jogo_ia/
+spirit-echo/
 ├── public/              # Arquivos de produção
 │   ├── index.html      # Página principal
 │   ├── arquivo.js      # Lógica do jogo
 │   ├── js/             # JavaScript adicional
 │   │   ├── security.js      # Módulo de segurança
-│   │   └── ai-responses.js  # Módulo de IA
+│   │   └── ai-responses.js  # Módulo de voz
 │   ├── css/            # Estilos
 │   ├── audio/          # Arquivos de áudio
 │   └── img/            # Imagens
@@ -174,7 +174,7 @@ MIT
 © 2026 — Built with scalability in mind
 </p>
 
-<img src="https://raw.githubusercontent.com/letsmg/jogo-ia/main/snake-dark.svg?palette=github-dark" />
+<img src="https://raw.githubusercontent.com/letsmg/spirit-echo/main/snake-dark.svg?palette=github-dark" />
 
 Copyright (c) 2026 Luiz Eduardo
 
@@ -209,7 +209,7 @@ The game actually consists of tricking your friends by making them believe that 
 
 4. **The answer appears:**
    - A sound is played (yt1.mp3 at 50% volume)
-   - The AI voice speaks the answer
+   - The voice speaks the answer
    - The text appears letter by letter
    - The background image is revealed gradually
 
@@ -224,9 +224,9 @@ The game actually consists of tricking your friends by making them believe that 
 - Press `=` or `;` to finish
 - Type the question and watch the answer appear
 
-# Spirit Game with AI
+# Spirit Echo
 
-An interactive game of asking spirits with sound effects, visuals, and **AI-generated responses**.
+An interactive spirit game with sound effects, visuals, and **voice-generated responses**.
 
 ## Features
 
@@ -234,7 +234,7 @@ An interactive game of asking spirits with sound effects, visuals, and **AI-gene
 - Ambient sound effects
 - Modern design with dark theme
 - Volume control
-- **Dynamic AI-generated responses**
+- **Dynamic voice-generated responses**
 - Security protections (XSS, HTTP headers)
 
 ## Technologies
@@ -243,7 +243,7 @@ An interactive game of asking spirits with sound effects, visuals, and **AI-gene
 - CSS3 (Bootstrap 5)
 - JavaScript (jQuery)
 - Vite (for local development)
-- **AI integration for dynamic responses**
+- **voice integration for dynamic responses**
 
 ## How to run locally
 
@@ -266,9 +266,9 @@ npm run dev
 
 The site will automatically open in your browser at http://localhost:3000
 
-## AI Functionality
+## Voice Functionality
 
-The game now uses AI to generate more dynamic and mysterious responses:
+The game now uses voice to generate more dynamic and mysterious responses:
 
 ### Mock Mode (Default)
 - Uses predefined responses with random variations
@@ -276,7 +276,7 @@ The game now uses AI to generate more dynamic and mysterious responses:
 - Works offline
 
 ### API Mode (Optional)
-To use a real AI API (OpenAI, Anthropic, etc.):
+To use a real voice API (OpenAI, Anthropic, etc.):
 
 1. Edit `public/js/ai-responses.js`
 2. Configure your API key:
@@ -287,9 +287,9 @@ window.aiResponseGenerator.apiEndpoint = 'https://api.example.com/v1/completions
 
 3. The game will use the API to generate more personalized responses
 
-### AI Error Responses
+### Voice Error Responses
 - More varied and mysterious error messages
-- Dynamically generated by the AI system
+- Dynamically generated by the voice system
 
 ## Deploy
 
@@ -313,13 +313,13 @@ The project implements multiple layers of security:
 ## Project Structure
 
 ```
-jogo_ia/
+spirit-echo/
 ├── public/              # Production files
 │   ├── index.html      # Main page
 │   ├── arquivo.js      # Game logic
 │   ├── js/             # Additional JavaScript
 │   │   ├── security.js      # Security module
-│   │   └── ai-responses.js  # AI module
+│   │   └── ai-responses.js  # voice module
 │   ├── css/            # Styles
 │   ├── audio/          # Audio files
 │   └── img/            # Images
@@ -336,6 +336,6 @@ MIT
   2026 — Built with scalability in mind
 </p>
 
-<img src="https://raw.githubusercontent.com/letsmg/spirits_ai/main/snake-dark.svg?palette=github-dark" />
+<img src="https://raw.githubusercontent.com/letsmg/spirit-echo/main/snake-dark.svg?palette=github-dark" />
 
 Copyright (c) 2026 Luiz Eduardo

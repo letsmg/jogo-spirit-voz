@@ -1,4 +1,4 @@
-// Módulo de Segurança para Jogo dos Espíritos
+// Módulo de Segurança para Spirit Echo
 class SecurityManager {
     constructor() {
         this.maxInputLength = 200;

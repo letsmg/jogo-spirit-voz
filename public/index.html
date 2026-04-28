@@ -9,17 +9,17 @@
     <link rel="canonical" href="https://yourdomain.com/">
 
     <!-- Primary Meta Tags -->
-    <title>Jogo dos Espíritos com IA | Spirit Game with AI</title>
-    <meta name="title" content="Jogo dos Espíritos com IA | Spirit Game with AI">
-    <meta name="description" content="Jogo interativo de perguntas aos espíritos com respostas geradas por IA. Um jogo misterioso e interativo com efeitos sonoros e visuais. | Interactive spirit game with AI-generated responses. A mysterious and interactive game with sound and visual effects.">
-    <meta name="keywords" content="jogo dos espíritos, espíritos, IA, inteligência artificial, jogo misterioso, perguntas aos espíritos, jogo interativo, spirit game, AI, artificial intelligence, mysterious game, spirit questions, interactive game, paranormal, supernatural">
+    <title>Spirit Echo</title>
+    <meta name="title" content="Spirit Echo">
+    <meta name="description" content="Jogo interativo de perguntas aos espíritos com respostas geradas por voz. Um jogo misterioso e interativo com efeitos sonoros e visuais. | Interactive spirit game with voice-generated responses. A mysterious and interactive game with sound and visual effects.">
+    <meta name="keywords" content="spirit echo, espíritos, voz, inteligência artificial, jogo misterioso, perguntas aos espíritos, jogo interativo, spirit game, voice, artificial intelligence, mysterious game, spirit questions, interactive game, paranormal, supernatural">
     <meta name="author" content="Luiz Eduardo">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yourdomain.com/">
-    <meta property="og:title" content="Jogo dos Espíritos com IA | Spirit Game with AI">
+    <meta property="og:title" content="Spirit Echo">
     <meta property="og:description" content="Jogo interativo de perguntas aos espíritos com respostas geradas por IA. Um jogo misterioso e interativo com efeitos sonoros e visuais. | Interactive spirit game with AI-generated responses.">
     <meta property="og:image" content="https://yourdomain.com/img/espirito.png">
     <meta property="og:locale" content="pt_BR">
@@ -28,8 +28,8 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://yourdomain.com/">
-    <meta property="twitter:title" content="Jogo dos Espíritos com IA | Spirit Game with AI">
-    <meta property="twitter:description" content="Jogo interativo de perguntas aos espíritos com respostas geradas por IA. Um jogo misterioso e interativo. | Interactive spirit game with AI-generated responses.">
+    <meta property="twitter:title" content="Spirit Echo">
+    <meta property="twitter:description" content="Jogo interativo de perguntas aos espíritos com respostas geradas por voz. Um jogo misterioso e interativo. | Interactive spirit game with voice-generated responses.">
     <meta property="twitter:image" content="https://yourdomain.com/img/espirito.png">
 
     <!-- Additional SEO Tags -->
@@ -61,6 +61,34 @@
     -->
     <audio id="voices" src="audio/voices.mp3"></audio>
     <audio id="yt1" src="audio/yt1.mp3"></audio>
+
+    <!-- Balão de instruções -->
+    <div id="instructionBalloon" class="instruction-balloon">
+        <div class="balloon-header" onclick="toggleInstructions()">
+            <i class="bi bi-info-circle-fill"></i>
+            <span>Preparação para conexão espiritual - clique aqui</span>
+            <i class="bi bi-chevron-down" id="balloonIcon"></i>
+        </div>
+        <div class="balloon-content" id="balloonContent">
+            <div class="balloon-inner">
+                <h5><i class="bi bi-lightbulb-fill"></i> Como funciona o Spirit Echo</h5>
+                <p>Este é um jogo de brincadeira para fazer com amigos! A ideia é criar uma experiência misteriosa e divertida.</p>
+                <hr>
+                <h6><i class="bi bi-keyboard"></i> Instruções:</h6>
+                <ul>
+                    <li><strong>Para o "mágico" (você):</strong> Pressione <code>=</code> ou <code>;</code> antes de começar a digitar a resposta secreta.</li>
+                    <li>Enquanto você digita a resposta, o site mostrará uma pergunta aleatória na tela.</li>
+                    <li>Quando terminar de digitar a resposta, pressione <code>=</code> ou <code>;</code> novamente para parar.</li>
+                    <li>Pressione <code>Enter</code> para revelar a resposta com efeitos de voz e imagem.</li>
+                </ul>
+                <hr>
+                <p class="text-muted small"><em>Dica: Use fones de ouvido para uma experiência mais imersiva!</em></p>
+                <button class="btn btn-sm btn-secondary mt-2" onclick="closeInstructions()">
+                    <i class="bi bi-x-lg"></i> Fechar
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal de Isenção de Responsabilidade -->
     <div class="modal fade" id="disclaimerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true">
@@ -120,7 +148,7 @@
             </div>
             
             <div class="col-12 text-center">
-                <h2 class="text-center mb-4">Jogo dos Espíritos com IA</h2>
+                <h2 class="text-center mb-4">Spirit Echo</h2>
             </div>
 
             <div class="col-12 text-center mb-5">
@@ -167,8 +195,33 @@
             button.disabled = !checkbox.checked;
         }
 
+        // Funções para o balão de instruções
+        function toggleInstructions() {
+            const content = document.getElementById('balloonContent');
+            const icon = document.getElementById('balloonIcon');
+            content.classList.toggle('expanded');
+            icon.classList.toggle('rotated');
+        }
+
+        function closeInstructions() {
+            const balloon = document.getElementById('instructionBalloon');
+            balloon.style.display = 'none';
+        }
+
         // Mostrar modal ao carregar a página (se não foi aceito antes)
         document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar volume dos elementos de áudio para 80% do Windows
+            const voices = document.getElementById('voices');
+            const yt1 = document.getElementById('yt1');
+            if (voices) voices.volume = 0.8;
+            if (yt1) yt1.volume = 0.8;
+
+            // Mostrar o balão de instruções sempre ao carregar a página
+            const balloon = document.getElementById('instructionBalloon');
+            if (balloon) {
+                balloon.style.display = 'block';
+            }
+
             // Verificar se o usuário já aceitou os termos
             const disclaimerAccepted = localStorage.getItem('disclaimerAccepted');
 
