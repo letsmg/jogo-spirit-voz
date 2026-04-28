@@ -29,7 +29,6 @@ jobs:
 
       - name: 🚀 Executar Deploy no Servidor
         run: |
-          # IP OCULTO: Usando o segredo configurado no GitHub
           SERVER_IP="${{ secrets.SERVER_IP }}"
 
           scp -o StrictHostKeyChecking=no deploy-spirit-echo.zip ubuntu@$SERVER_IP:/tmp/
@@ -42,14 +41,18 @@ jobs:
             # 1. Garante que a pasta existe
             sudo mkdir -p ${BASE_DIR}
 
-            # 2. Descompacta e sobrescreve
+            # 2. LIMPEZA SEGURA: Remove conteúdo interno antes de descompactar
+            # Isso evita que arquivos deletados no Git continuem existindo no servidor
+            sudo rm -rf ${BASE_DIR}/*
+
+            # 3. Descompacta o novo pacote
             sudo unzip -o /tmp/deploy-spirit-echo.zip -d ${BASE_DIR}
 
-            # 3. Ajustar permissões
+            # 4. Ajustar permissões (Proprietário www-data para o Nginx)
             sudo chown -R www-data:www-data ${BASE_DIR}
             sudo chmod -R 755 ${BASE_DIR}
 
-            # 4. Limpeza
+            # 5. Limpeza do arquivo temporário
             sudo rm /tmp/deploy-spirit-echo.zip
             
             echo "✅ Deploy Spirit Echo Finalizado!"
