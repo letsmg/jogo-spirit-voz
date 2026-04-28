@@ -14,8 +14,10 @@ jobs:
       - name: 🤐 Criar Pacote de Deploy
         run: |
           mkdir build-tmp
-          cp -r public/* build-tmp/
-          [ -f .htaccess ] && cp .htaccess build-tmp/ || echo "Sem .htaccess"
+          # COPIA A PASTA INTEIRA (mantendo a subpasta public para o Nginx encontrar)
+          cp -r public build-tmp/
+          # Copia o .htaccess para dentro da public se ele existir na raiz
+          [ -f .htaccess ] && cp .htaccess build-tmp/public/ || echo "Sem .htaccess na raiz"
 
           cd build-tmp
           zip -r ../deploy-spirit-echo.zip .
@@ -38,22 +40,25 @@ jobs:
 
             BASE_DIR="/var/www/spirit-echo"
 
-            # 1. Garante que a pasta existe
+            # 1. Garante que a pasta base existe
             sudo mkdir -p ${BASE_DIR}
 
-            # 2. LIMPEZA SEGURA: Remove conteúdo interno antes de descompactar
-            # Isso evita que arquivos deletados no Git continuem existindo no servidor
+            # 2. Limpeza do conteúdo antigo (limpa inclusive a subpasta public antiga)
             sudo rm -rf ${BASE_DIR}/*
 
-            # 3. Descompacta o novo pacote
+            # 3. Descompacta o novo pacote (criará a pasta /public dentro de BASE_DIR)
             sudo unzip -o /tmp/deploy-spirit-echo.zip -d ${BASE_DIR}
 
-            # 4. Ajustar permissões (Proprietário www-data para o Nginx)
+            # 4. Ajustar permissões para o Nginx
             sudo chown -R www-data:www-data ${BASE_DIR}
             sudo chmod -R 755 ${BASE_DIR}
 
-            # 5. Limpeza do arquivo temporário
+            # 5. Limpeza do arquivo temporário no servidor
             sudo rm /tmp/deploy-spirit-echo.zip
             
-            echo "✅ Deploy Spirit Echo Finalizado!"
+            echo "✅ Deploy Spirit Echo Finalizado com estrutura /public!"
           EOF
+
+      - name: 🧹 Cleanup Runner
+        if: always()
+        run: rm -rf build-tmp deploy-spirit-echo.zip
